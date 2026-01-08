@@ -2,7 +2,7 @@ const inputElem = document.getElementById("input-el")
 const addBtn = document.getElementById("add-btn")
 const ulElem = document.getElementById("ul-el")
 
-const todos = []
+let todos = []
 
 addBtn.addEventListener('click', addTodo)
 
@@ -21,13 +21,20 @@ function addTodo() {
 }
 
 function renderTodo(todos) {
-  let todo = ""
-  for(let i = 0; i < todos.length; i++) {
-    todo = todos[i].text
-  }
-  // console.log(todo)
-  ulElem.innerHTML += `
-                        <li>${todo}</li>
-                      `
+  let html = ""
+  todos.forEach(todo => (
+    html += `
+              <li>
+                ${todo.text}
+                <button onclick="deleteTodo(${todo.id})">x</button>
+              </li>
+            `
+  ))
+  ulElem.innerHTML = html 
+}
+
+function deleteTodo(id) {
+  todos = todos.filter(todo => todo.id !== id)
+  renderTodo(todos)
 }
 
