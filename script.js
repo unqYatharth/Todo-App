@@ -16,6 +16,18 @@ function addTodo() {
       isCompleted: false
     }
   )
+  renderTodo(todos)
   inputElem.value = ""
+}
+
+function renderTodo(todos) {
+  let todo = ""
+  for(let i = 0; i < todos.length; i++) {
+    todo = todos[i].text
+  }
+  // console.log(todo)
+  ulElem.innerHTML += `
+                        <li>${todo}</li>
+                      `
 }
 
