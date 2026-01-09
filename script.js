@@ -7,13 +7,14 @@ let todos = []
 addBtn.addEventListener('click', addTodo)
 
 function addTodo() {
-  if(!inputElem.value) return
-  
+  if (!inputElem.value) return
+
   todos.push(
     {
       id: Date.now(),
       text: inputElem.value,
-      isCompleted: false
+      isCompleted: false,
+      isEditing: false
     }
   )
   renderTodo(todos)
@@ -25,12 +26,18 @@ function renderTodo(todos) {
   todos.forEach(todo => (
     html += `
               <li>
-                ${todo.text}
-                <button onclick="deleteTodo(${todo.id})">x</button>
+                ${
+                  todo.isEditing ?
+                    `<input type="text" value="${todo.text}" id="edit-${todo.id}">
+                      <button onclick="saveUpdatedTodo(${todo.id})"><i class="fa-solid fa-floppy-disk"></i></button>`
+                    : `${todo.text}
+                      <button id="update-btn" onclick="updateTodo(${todo.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button onclick="deleteTodo(${todo.id})"><i class="fa-solid fa-trash"></i></button>`
+                }
               </li>
             `
   ))
-  ulElem.innerHTML = html 
+  ulElem.innerHTML = html
 }
 
 function deleteTodo(id) {
@@ -38,3 +45,19 @@ function deleteTodo(id) {
   renderTodo(todos)
 }
 
+function updateTodo(id) {
+  todos = todos.map(todo => (
+    todo.id === id ? { ...todo, isEditing: true } : todo
+  ))
+  renderTodo(todos)
+}
+
+function saveUpdatedTodo(id) {
+  const updateInputEl = document.getElementById(`edit-${id}`)
+  const newText = updateInputEl.value.trim()
+  if (!newText) return;
+  todos = todos.map(todo => (
+    todo.id === id ? { ...todo, text: newText, isEditing: false } : todo
+  ))
+  renderTodo(todos)
+}
