@@ -29,10 +29,12 @@ function renderTodo(todos) {
                 ${
                   todo.isEditing ?
                     `<input type="text" value="${todo.text}" id="edit-${todo.id}">
-                      <button onclick="saveUpdatedTodo(${todo.id})"><i class="fa-solid fa-floppy-disk"></i></button>`
+                      <button id="save-todo-btn" onclick="saveUpdatedTodo(${todo.id})"><i class="fa-solid fa-floppy-disk"></i></button>`
                     : `${todo.text}
-                      <button id="update-btn" onclick="updateTodo(${todo.id})"><i class="fa-solid fa-pen-to-square"></i></button>
-                      <button onclick="deleteTodo(${todo.id})"><i class="fa-solid fa-trash"></i></button>`
+                      <div class="todo-btns">
+                        <button id="update-btn" onclick="updateTodo(${todo.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button id="delete-btn" onclick="deleteTodo(${todo.id})"><i class="fa-solid fa-trash"></i></button>
+                      </div>`
                 }
               </li>
             `
