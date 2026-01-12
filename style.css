@@ -105,14 +105,11 @@ li button {
 }
 
 #update-btn {
+	color: #6c63ff;
 	margin-right: 6px;
 }
 
-#update-btn:hover {
-	color: #6c63ff;
-}
-
-#delete-btn:hover {
+#delete-btn {
 	color: #c90303;
 }
 
