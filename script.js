@@ -30,7 +30,10 @@ function renderTodo(todos) {
                   todo.isEditing ?
                     `<input type="text" value="${todo.text}" id="edit-${todo.id}">
                       <button id="save-todo-btn" onclick="saveUpdatedTodo(${todo.id})"><i class="fa-solid fa-floppy-disk"></i></button>`
-                    : `${todo.text}
+                    : `<div>
+                        <input type="checkbox" ${todo.isCompleted ? 'checked' : ''} onclick="toggleComplete(${todo.id})">
+                        ${todo.text}
+                      </div>
                       <div class="todo-btns">
                         <button id="update-btn" onclick="updateTodo(${todo.id})"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button id="delete-btn" onclick="deleteTodo(${todo.id})"><i class="fa-solid fa-trash"></i></button>
@@ -62,4 +65,8 @@ function saveUpdatedTodo(id) {
     todo.id === id ? { ...todo, text: newText, isEditing: false } : todo
   ))
   renderTodo(todos)
+}
+
+function toggleComplete(id) {
+  console.log(todos.find(todo => todo.id === id))
 }
