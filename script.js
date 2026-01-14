@@ -30,9 +30,9 @@ function renderTodo(todos) {
                   todo.isEditing ?
                     `<input type="text" value="${todo.text}" id="edit-${todo.id}">
                       <button id="save-todo-btn" onclick="saveUpdatedTodo(${todo.id})"><i class="fa-solid fa-floppy-disk"></i></button>`
-                    : `<div>
-                        <input type="checkbox" ${todo.isCompleted ? 'checked' : ''} onclick="toggleComplete(${todo.id})">
-                        ${todo.text}
+                    : `<div class="todo-text">
+                        <input id="todo-${todo.id}" type="checkbox" ${todo.isCompleted ? 'checked' : ''} onclick="toggleComplete(${todo.id})">
+                        <label for="todo-${todo.id}">${todo.text}</label>
                       </div>
                       <div class="todo-btns">
                         <button id="update-btn" onclick="updateTodo(${todo.id})"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -68,5 +68,8 @@ function saveUpdatedTodo(id) {
 }
 
 function toggleComplete(id) {
-  console.log(todos.find(todo => todo.id === id))
+  todos = todos.map(todo => 
+    todo.id === id ? {...todo, isCompleted: !todo.isCompleted } : todo
+  )
+  document.querySelector(`.todo-text label[for="todo-${id}"]`).classList.toggle('completed')
 }
