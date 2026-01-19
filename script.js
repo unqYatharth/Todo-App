@@ -26,19 +26,18 @@ function renderTodo(todos) {
   todos.forEach(todo => (
     html += `
               <li>
-                ${
-                  todo.isEditing ?
-                    `<input type="text" value="${todo.text}" id="edit-${todo.id}">
+                ${todo.isEditing ?
+      `<input type="text" value="${todo.text}" id="edit-${todo.id}">
                       <button id="save-todo-btn" onclick="saveUpdatedTodo(${todo.id})"><i class="fa-solid fa-floppy-disk"></i></button>`
-                    : `<div class="todo-text">
+      : `<div class="todo-text">
                         <input id="todo-${todo.id}" type="checkbox" ${todo.isCompleted ? 'checked' : ''} onclick="toggleComplete(${todo.id})">
-                        <label for="todo-${todo.id}">${todo.text}</label>
+                        <label class="${todo.isCompleted ? 'completed' : ''}" for="todo-${todo.id}">${todo.text}</label>
                       </div>
                       <div class="todo-btns">
                         <button id="update-btn" onclick="updateTodo(${todo.id})"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button id="delete-btn" onclick="deleteTodo(${todo.id})"><i class="fa-solid fa-trash"></i></button>
                       </div>`
-                }
+    }
               </li>
             `
   ))
@@ -68,8 +67,8 @@ function saveUpdatedTodo(id) {
 }
 
 function toggleComplete(id) {
-  todos = todos.map(todo => 
-    todo.id === id ? {...todo, isCompleted: !todo.isCompleted } : todo
+  todos = todos.map(todo =>
+    todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
   )
-  document.querySelector(`.todo-text label[for="todo-${id}"]`).classList.toggle('completed')
+  renderTodo(todos)
 }

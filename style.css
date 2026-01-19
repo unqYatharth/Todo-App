@@ -32,6 +32,7 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
+	user-select: none;
 }
 
 input {
@@ -116,6 +117,7 @@ li input[type="text"] {
 	padding-left: 2px;
 	background: transparent;
 	color: #fff;
+	font-size: 17px;
 }
 
 li button {
